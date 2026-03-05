@@ -1,0 +1,33 @@
+﻿<Properties StartupConfiguration="{AA56EF57-E443-433D-A0A9-E5A3C9A1FD73}|http">
+  <MonoDevelop.Ide.Workbench ActiveDocument="mvc/Controllers/PageController.cs">
+    <Files>
+      <File FileName="mvc/Views/Page/Edit.cshtml" />
+      <File FileName="mvc/Controllers/PageController.cs" Line="50" Column="1" />
+      <File FileName="mvc/Views/Page/EditResult.cshtml" />
+      <File FileName="mvc/Models/ErrorViewModel.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="mvc" expanded="True">
+            <Node name="mvc" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Home" expanded="True" />
+                <Node name="Page" expanded="True" />
+                <Node name="_ViewImports.cshtml" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.mvc PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+</Properties>

@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Редактирование сообщения";
+}
+
+<form method="post" asp-controller="Page" asp-action="Edit">
+    <input type="text" name="message" value="@ViewBag.Message" />
+    <button type="submit">Отправить</button>
+</form>
