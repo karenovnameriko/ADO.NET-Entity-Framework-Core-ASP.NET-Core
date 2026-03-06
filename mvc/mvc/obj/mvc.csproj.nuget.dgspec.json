@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/merykarenovna/Projects/mvc/mvc/mvc.csproj": {}
+    "/Users/merykarenovna/ADOASPNET/mvc/mvc/mvc.csproj": {}
   },
   "projects": {
-    "/Users/merykarenovna/Projects/mvc/mvc/mvc.csproj": {
+    "/Users/merykarenovna/ADOASPNET/mvc/mvc/mvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/merykarenovna/Projects/mvc/mvc/mvc.csproj",
+        "projectUniqueName": "/Users/merykarenovna/ADOASPNET/mvc/mvc/mvc.csproj",
         "projectName": "mvc",
-        "projectPath": "/Users/merykarenovna/Projects/mvc/mvc/mvc.csproj",
+        "projectPath": "/Users/merykarenovna/ADOASPNET/mvc/mvc/mvc.csproj",
         "packagesPath": "/Users/merykarenovna/.nuget/packages/",
-        "outputPath": "/Users/merykarenovna/Projects/mvc/mvc/obj/",
+        "outputPath": "/Users/merykarenovna/ADOASPNET/mvc/mvc/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/merykarenovna/.nuget/NuGet/NuGet.Config"
