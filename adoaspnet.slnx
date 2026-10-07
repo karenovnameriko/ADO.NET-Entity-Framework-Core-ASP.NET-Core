@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/mvc/">
+    <Project Path="mvc/mvc/mvc.csproj" />
+  </Folder>
+</Solution>
