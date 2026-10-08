@@ -2,4 +2,5 @@
   <Folder Name="/mvc/">
     <Project Path="mvc/mvc/mvc.csproj" />
   </Folder>
+  <Project Path="KT1_CreateWebPage_mvc/KT1_CreateWebPage_mvc.csproj" />
 </Solution>
