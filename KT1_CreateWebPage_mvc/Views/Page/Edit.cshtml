@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Edit Page";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Задание 3</title>
+</head>
+<body>
+<div>
+    <form method="post">
+        <input type="text" name="message"/>
+        <button type="submit">Отправить</button>
+    </form>
+    
+    <h1>Ваше сообщение:</h1>
+
+    <p>@ViewBag.Message</p>
+</div>
+</body>
+</html>
