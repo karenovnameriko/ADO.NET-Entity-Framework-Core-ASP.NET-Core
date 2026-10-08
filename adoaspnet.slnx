@@ -3,4 +3,7 @@
     <Project Path="mvc/mvc/mvc.csproj" />
   </Folder>
   <Project Path="KT1_CreateWebPage_mvc/KT1_CreateWebPage_mvc.csproj" />
+  <Project Path="KT2_Textarea/KT2_Textarea.csproj" />
+  <Project Path="KT3_HttpResponse/KT3_HttpResponse.csproj" />
+  <Project Path="KT4_HttpRequest/KT4_HttpRequest.csproj" />
 </Solution>

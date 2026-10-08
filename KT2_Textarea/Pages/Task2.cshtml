@@ -1,0 +1,46 @@
+@page
+@model KT2_Textarea.Pages.Task2
+
+@{
+    ViewData["Title"] = "Задание 2";
+}
+
+<div class="text-center">
+    <h1>Задание 2. Редактор текста</h1>
+
+    <button type="button" onclick="makeBold()">Жирный</button>
+    <button type="button" onclick="makeItalic()">Курсив</button>
+    <button type="button" onclick="makeUnderline()">Подчёркнутый</button>
+
+    <br />
+    <br />
+
+    <div id="editor" contenteditable="true">
+        @Html.Raw(Model.Text1)
+    </div>
+    
+    <form method="post">
+        <input type="hidden" name="text" id="text" />
+
+        <button type="submit" onclick="saveText()">Сохранить</button>
+    </form>
+   
+</div>
+<script>
+    function makeBold() {
+        document.execCommand("bold");
+    }
+
+    function makeItalic() {
+        document.execCommand("italic");
+    }
+
+    function makeUnderline() {
+        document.execCommand("underline");
+    }
+
+    function saveText() {
+        document.getElementById("text").value =
+            document.getElementById("editor").innerHTML;
+    }
+</script>
