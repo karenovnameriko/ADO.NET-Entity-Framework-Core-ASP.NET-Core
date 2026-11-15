@@ -1,0 +1,64 @@
+@KT5_WebAPITemp_HostAddress = http://localhost:5220
+
+GET {{KT5_WebAPITemp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+### Получить все категории
+GET {{KT5_WebAPITemp_HostAddress}}/api/categories
+Accept: application/json
+
+### Добавить категорию
+POST {{KT5_WebAPITemp_HostAddress}}/api/categories
+Content-Type: application/json
+
+{
+  "name": "Электроника"
+}
+
+### Получить категорию по ID
+GET {{KT5_WebAPITemp_HostAddress}}/api/categories/1
+Accept: application/json
+
+### Изменить категорию
+PUT {{KT5_WebAPITemp_HostAddress}}/api/categories/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Техника"
+}
+
+### Удалить категорию
+DELETE {{KT5_WebAPITemp_HostAddress}}/api/categories/1
+
+### Добавить товар
+POST {{KT5_WebAPITemp_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Ноутбук",
+  "price": 75000,
+  "categoryId": 1
+}
+
+### Получить все товары
+GET {{KT5_WebAPITemp_HostAddress}}/api/products
+Accept: application/json
+
+### Получить товар по ID
+GET {{KT5_WebAPITemp_HostAddress}}/api/products/1
+Accept: application/json
+
+### Изменить товар
+PUT {{KT5_WebAPITemp_HostAddress}}/api/products/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Ноутбук ASUS",
+  "price": 80000,
+  "categoryId": 1
+}
+
+### Удалить товар
+DELETE {{KT5_WebAPITemp_HostAddress}}/api/products/1

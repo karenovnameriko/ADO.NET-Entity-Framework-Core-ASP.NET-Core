@@ -1,4 +1,4 @@
-<Solution>
+<Solution>lution&gt;
   <Folder Name="/mvc/">
     <Project Path="mvc/mvc/mvc.csproj" />
   </Folder>
@@ -6,4 +6,5 @@
   <Project Path="KT2_Textarea/KT2_Textarea.csproj" />
   <Project Path="KT3_HttpResponse/KT3_HttpResponse.csproj" />
   <Project Path="KT4_HttpRequest/KT4_HttpRequest.csproj" />
+  <Project Path="KT5_WebAPITemp/KT5_WebAPITemp.csproj" />
 </Solution>
