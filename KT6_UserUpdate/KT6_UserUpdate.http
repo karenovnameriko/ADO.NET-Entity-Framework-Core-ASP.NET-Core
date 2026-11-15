@@ -1,0 +1,44 @@
+
+### 1. Получить пользователя
+GET http://localhost:5043/api/Users/1
+
+### 2. Обновить имя, email и возраст
+PUT http://localhost:5043/api/Users/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Alex",
+  "email": "alex@example.com",
+  "age": 30
+}
+
+### 3. Условное обновление email — правильное имя
+PUT http://localhost:5043/api/Users/1/email?name=Alex&email=new@example.com
+
+### 4. Условное обновление email — неправильное имя
+PUT http://localhost:5043/api/Users/1/email?name=Ivan&email=wrong@example.com
+
+### 5. Обновление с транзакцией
+PUT http://localhost:5043/api/Users/1/transaction
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Max",
+  "email": "max@example.com",
+  "age": 28
+}
+
+### 6. Проверить итоговые данные
+GET http://localhost:5043/api/Users/1
+
+### 7. Проверить обработку отсутствующего пользователя
+PUT http://localhost:5043/api/Users/999
+Content-Type: application/json
+
+{
+  "name": "Nobody",
+  "email": "nobody@example.com",
+  "age": 20
+}
