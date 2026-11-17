@@ -1,0 +1,67 @@
+﻿@page
+@model KT8_Encryption.Pages.IndexModel
+
+<h1>Шифрование и расшифровка данных</h1>
+
+<form method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Алгоритм шифрования</label>
+        <select asp-for="Algorithm" class="form-select">
+            <option value="AES">AES</option>
+            <option value="RSA">RSA</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Исходный текст</label>
+        <textarea asp-for="InputText" class="form-control" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Ключ (автоматически генерируется, если оставить пустым)</label>
+        <textarea asp-for="Key" class="form-control" rows="5"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Открытый ключ RSA (необязательно)</label>
+        <textarea asp-for="PublicKey" class="form-control" rows="5"></textarea>
+    </div>
+
+    <button type="submit"
+            asp-page-handler="Encrypt"
+            class="btn btn-primary">
+        Зашифровать
+    </button>
+
+    <hr />
+
+    <div class="mb-3">
+        <label class="form-label">Зашифрованный текст</label>
+        <textarea asp-for="EncryptedText" class="form-control" rows="5"></textarea>
+    </div>
+
+    <button type="submit"
+            asp-page-handler="Decrypt"
+            class="btn btn-success">
+        Расшифровать
+    </button>
+
+</form>
+
+@if (Model.Error != null)
+{
+    <div class="alert alert-danger mt-3">
+        @Model.Error
+    </div>
+}
+
+@if (Model.DecryptedText != null)
+{
+    <div class="mt-4">
+        <h3>Расшифрованный текст</h3>
+        <div class="alert alert-success">
+            @Model.DecryptedText
+        </div>
+    </div>
+}

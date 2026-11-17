@@ -1,0 +1,24 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Библиотека";
+}
+
+<div class="container mt-5">
+    <h1>Система управления библиотекой</h1>
+
+    <p class="text-muted">
+        Управление авторами и книгами с использованием EF Core.
+    </p>
+
+    <div class="mt-4">
+        <a asp-page="/Authors/Index" class="btn btn-primary btn-lg me-2">
+            Управление авторами
+        </a>
+
+        <a asp-page="/Books/Index" class="btn btn-success btn-lg">
+            Управление книгами
+        </a>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+@page
+@model KT14_ManyToMany.Pages.Teachers.IndexModel
+
+@{
+    ViewData["Title"] = "Преподаватели";
+}
+
+<div class="container mt-4">
+    <h1>Преподаватели</h1>
+
+    <a asp-page="./Create" class="btn btn-primary mb-3">
+        Добавить преподавателя
+    </a>
+
+    <a asp-page="/Index" class="btn btn-secondary mb-3">
+        На главную
+    </a>
+
+    @if (!Model.Teachers.Any())
+    {
+        <p>Преподавателей пока нет.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Количество курсов</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var teacher in Model.Teachers)
+            {
+                <tr>
+                    <td>@teacher.Id</td>
+                    <td>@teacher.Name</td>
+                    <td>@teacher.Email</td>
+                    <td>@teacher.Courses.Count</td>
+                    <td>
+                        <a asp-page="./Edit"
+                           asp-route-id="@teacher.Id"
+                           class="btn btn-warning btn-sm">
+                            Изменить
+                        </a>
+
+                        <a asp-page="./Delete"
+                           asp-route-id="@teacher.Id"
+                           class="btn btn-danger btn-sm">
+                            Удалить
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>

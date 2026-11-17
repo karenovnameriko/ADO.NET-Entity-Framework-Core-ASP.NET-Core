@@ -1,0 +1,43 @@
+@page "{id:int}"
+@model KT13_OneToMany.Pages.Authors.DeleteModel
+
+@{
+    ViewData["Title"] = "Удаление автора";
+}
+
+<div class="container mt-4">
+    <h1>Удаление автора</h1>
+
+    <div class="alert alert-warning">
+        При удалении автора все его книги также будут удалены.
+    </div>
+
+    <p><strong>Имя:</strong> @Model.SelectedAuthor!.Name</p>
+    <p><strong>Страна:</strong> @Model.SelectedAuthor.Country</p>
+
+    <h4>Книги автора:</h4>
+
+    @if (Model.SelectedAuthor.Books.Any())
+    {
+        <ul>
+            @foreach (var book in Model.SelectedAuthor.Books)
+            {
+                <li>@book.Title</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>У автора нет книг.</p>
+    }
+
+    <form method="post">
+        <button type="submit" class="btn btn-danger">
+            Удалить автора и его книги
+        </button>
+
+        <a asp-page="./Index" class="btn btn-secondary">
+            Отмена
+        </a>
+    </form>
+</div>

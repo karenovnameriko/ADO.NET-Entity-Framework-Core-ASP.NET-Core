@@ -1,0 +1,59 @@
+@page
+@model KT12_OneToOne.Pages.Users.CreateModel
+
+@{
+    ViewData["Title"] = "Добавление пользователя";
+}
+
+<div class="container mt-4">
+    <h1>Добавление пользователя</h1>
+
+    <form method="post">
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <h4>Данные пользователя</h4>
+
+        <div class="mb-3">
+            <label asp-for="Input.Name" class="form-label">Имя</label>
+            <input asp-for="Input.Name" class="form-control" />
+            <span asp-validation-for="Input.Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.Email" class="form-label">Email</label>
+            <input asp-for="Input.Email" class="form-control" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+
+        <hr />
+
+        <h4>Профиль пользователя</h4>
+
+        <div class="mb-3">
+            <label asp-for="Input.Phone" class="form-label">Телефон</label>
+            <input asp-for="Input.Phone" class="form-control" />
+            <span asp-validation-for="Input.Phone" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.City" class="form-label">Город</label>
+            <input asp-for="Input.City" class="form-control" />
+            <span asp-validation-for="Input.City" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.About" class="form-label">О себе</label>
+            <textarea asp-for="Input.About" class="form-control"></textarea>
+            <span asp-validation-for="Input.About" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Создать
+        </button>
+
+        <a asp-page="./Index" class="btn btn-secondary">
+            Назад
+        </a>
+    </form>
+</div>

@@ -1,0 +1,37 @@
+@page "/details/{Id:int}"
+
+@inject NavigationManager Navigation
+
+<h2>Детальная информация</h2>
+
+<p>Идентификатор страницы: <strong>@Id</strong></p>
+
+@if (Id == 1)
+{
+    <p>Это первая запись.</p>
+}
+else if (Id == 2)
+{
+    <p>Это вторая запись.</p>
+}
+else
+{
+    <p>Запись с таким ID найдена в маршруте, но подробная информация отсутствует.</p>
+}
+
+<button class="btn btn-primary"
+        @onclick="GoToNext">
+    Перейти к следующей записи
+</button>
+
+<NavigationButton Text="На главную" Url="/" />
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private void GoToNext()
+    {
+        Navigation.NavigateTo($"/details/{Id + 1}");
+    }
+}

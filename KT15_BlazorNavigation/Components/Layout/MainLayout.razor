@@ -1,0 +1,90 @@
+﻿@inherits LayoutComponentBase
+@implements IDisposable
+
+@inject NavigationManager Navigation
+@inject RouteStateService RouteState
+@inject LocalizationService Localization
+@inject ILogger<MainLayout> Logger
+
+<PageTitle>@Localization.Text(RouteState.TitleKey)</PageTitle>
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+        <h2>@Localization.Text("appName")</h2>
+        <LanguageSwitcher />
+    </div>
+
+    <PageHeader TitleKey="@RouteState.TitleKey"
+                CurrentPath="@RouteState.CurrentPath" />
+
+    @if (!string.IsNullOrEmpty(RouteState.Notification))
+    {
+        <div class="alert alert-info">
+            @Localization.Text("navigation"): @RouteState.Notification
+        </div>
+    }
+
+    <nav class="d-flex flex-wrap gap-2 mb-4">
+        <a href="/" class="btn btn-outline-primary">
+            @Localization.Text("home")
+        </a>
+
+        <a href="/products" class="btn btn-outline-primary">
+            @Localization.Text("products")
+        </a>
+
+        <a href="/services" class="btn btn-outline-primary">
+            @Localization.Text("services")
+        </a>
+
+        <a href="/details/1" class="btn btn-outline-primary">
+            @Localization.Text("details")
+        </a>
+    </nav>
+
+    <main>
+        @Body
+    </main>
+
+    <RouteContent />
+
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        RouteState.Update(Navigation.Uri, false);
+
+        Logger.LogInformation(
+            "Initial route: {Route}",
+            RouteState.CurrentPath);
+
+        Navigation.LocationChanged += OnLocationChanged;
+        Localization.LanguageChanged += OnLanguageChanged;
+    }
+
+    private void OnLocationChanged(
+        object? sender,
+        LocationChangedEventArgs args)
+    {
+        RouteState.Update(args.Location);
+
+        Logger.LogInformation(
+            "Navigation route changed to: {Route}",
+            RouteState.CurrentPath);
+
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    private void OnLanguageChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= OnLocationChanged;
+        Localization.LanguageChanged -= OnLanguageChanged;
+    }
+}

@@ -1,0 +1,61 @@
+@implements IDisposable
+
+@inject NavigationManager Navigation
+@inject LocalizationService Localization
+
+@if (_currentPath.StartsWith("/products",
+         StringComparison.OrdinalIgnoreCase))
+{
+    <div class="alert alert-primary mt-4">
+        <h4>@Localization.Text("dynamicContent")</h4>
+        <p>@Localization.Text("productsText")</p>
+        <p>@Localization.Text("productOne")</p>
+        <p>@Localization.Text("productTwo")</p>
+    </div>
+}
+else if (_currentPath.StartsWith("/services",
+             StringComparison.OrdinalIgnoreCase))
+{
+    <div class="alert alert-success mt-4">
+        <h4>@Localization.Text("dynamicContent")</h4>
+        <p>@Localization.Text("servicesText")</p>
+        <p>@Localization.Text("serviceOne")</p>
+        <p>@Localization.Text("serviceTwo")</p>
+    </div>
+}
+
+@code {
+    private string _currentPath = "/";
+
+    protected override void OnInitialized()
+    {
+        UpdatePath();
+
+        Navigation.LocationChanged += OnLocationChanged;
+        Localization.LanguageChanged += OnLanguageChanged;
+    }
+
+    private void UpdatePath()
+    {
+        _currentPath = new Uri(Navigation.Uri).AbsolutePath;
+    }
+
+    private void OnLocationChanged(
+        object? sender,
+        LocationChangedEventArgs args)
+    {
+        UpdatePath();
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    private void OnLanguageChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= OnLocationChanged;
+        Localization.LanguageChanged -= OnLanguageChanged;
+    }
+}

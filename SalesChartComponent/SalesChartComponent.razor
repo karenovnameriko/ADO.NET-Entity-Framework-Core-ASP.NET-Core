@@ -1,0 +1,95 @@
+
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<div class="card shadow-sm p-4">
+    <h3>Динамика продаж</h3>
+
+    <div class="mb-3">
+        <label class="form-label">Период:</label>
+        <select class="form-select"
+                @bind="_period"
+                @bind:after="UpdateChart">
+            <option value="all">Весь год</option>
+            <option value="first">Первое полугодие</option>
+            <option value="second">Второе полугодие</option>
+        </select>
+    </div>
+
+    <canvas @ref="_canvas"
+            style="width:100%; height:320px;">
+    </canvas>
+
+    <p class="mt-3">
+        Общая сумма продаж:
+        <strong>@TotalSales.ToString("N0") ₽</strong>
+    </p>
+</div>
+
+@code {
+    private ElementReference _canvas;
+    private IJSObjectReference? _module;
+    private string _period = "all";
+
+    private readonly string[] _months =
+    {
+        "Янв", "Фев", "Мар", "Апр", "Май", "Июн",
+        "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"
+    };
+
+    private readonly int[] _sales =
+    {
+        120000, 150000, 135000, 180000,
+        210000, 195000, 230000, 250000,
+        220000, 280000, 310000, 350000
+    };
+
+    private string[] VisibleMonths => _period switch
+    {
+        "first" => _months.Take(6).ToArray(),
+        "second" => _months.Skip(6).ToArray(),
+        _ => _months
+    };
+
+    private int[] VisibleSales => _period switch
+    {
+        "first" => _sales.Take(6).ToArray(),
+        "second" => _sales.Skip(6).ToArray(),
+        _ => _sales
+    };
+
+    private int TotalSales => VisibleSales.Sum();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _module = await JS.InvokeAsync<IJSObjectReference>(
+                "import",
+                "./_content/SalesChartComponent/js/salesChart.js");
+
+            await UpdateChart();
+        }
+    }
+
+    private async Task UpdateChart()
+    {
+        if (_module is null)
+            return;
+
+        await _module.InvokeVoidAsync(
+            "drawChart",
+            _canvas,
+            VisibleMonths,
+            VisibleSales);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module is not null)
+        {
+            await _module.DisposeAsync();
+        }
+    }
+}

@@ -1,0 +1,75 @@
+### Добавить студента
+POST http://localhost:5044/api/Students
+Content-Type: application/json
+
+{
+  "name": "Anna",
+  "age": 20,
+  "email": "anna@example.com"
+}
+
+### Получить студентов
+GET http://localhost:5044/api/Students
+
+### Обновить студента
+PUT http://localhost:5044/api/Students/2
+Content-Type: application/json
+
+{
+  "name": "Anna Smith",
+  "age": 21,
+  "email": "anna.smith@example.com"
+}
+
+### Удалить студента
+DELETE http://localhost:5044/api/Students/2
+
+
+### Создать задачу
+POST http://localhost:5044/api/Tasks
+Content-Type: application/json
+
+{
+  "title": "Изучить C#",
+  "description": "Повторить основы языка"
+}
+
+### Получить все задачи
+GET http://localhost:5044/api/Tasks
+
+### Фильтрация
+GET http://localhost:5044/api/Tasks?status=Новая
+
+### Изменить статус
+PUT http://localhost:5044/api/Tasks/2/status?status=В%20работе
+
+### Удалить задачу
+DELETE http://localhost:5044/api/Tasks/2
+
+
+
+### Создать бронирование
+POST http://localhost:5044/api/Bookings/HotelRoom
+Content-Type: application/json
+
+{
+  "resourceId": 3,
+  "startAt": "2026-11-20T10:00:00",
+  "endAt": "2026-11-22T12:00:00"
+}
+
+### Проверить доступность
+GET http://localhost:5044/api/Bookings/available?resourceType=HotelRoom&start=2026-11-20T10:00:00&end=2026-11-22T12:00:00&count=5
+
+### Изменить бронирование
+PUT http://localhost:5044/api/Bookings/HotelRoom/3
+Content-Type: application/json
+
+{
+  "resourceId": 3,
+  "startAt": "2026-11-23T10:00:00",
+  "endAt": "2026-11-25T12:00:00"
+}
+
+### Отменить бронирование
+DELETE http://localhost:5044/api/Bookings/HotelRoom/3

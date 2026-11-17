@@ -1,0 +1,36 @@
+﻿@page "/not-found"
+
+@implements IDisposable
+
+@inject LocalizationService Localization
+
+<div class="container mt-5 text-center">
+
+    <h1 class="display-4">404</h1>
+
+    <h2>@Localization.Text("notFound")</h2>
+
+    <p>@Localization.Text("wrongUrl")</p>
+
+    <NavigationButton
+        Text='@Localization.Text("goHome")'
+        Url="/" />
+
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Localization.LanguageChanged += OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Localization.LanguageChanged -= OnLanguageChanged;
+    }
+}

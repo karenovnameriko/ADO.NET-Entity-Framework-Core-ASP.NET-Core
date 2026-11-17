@@ -1,0 +1,107 @@
+<div class="card shadow-sm mb-4">
+    <div class="card-header">
+        <h3>Часть 1. Форма ввода</h3>
+    </div>
+
+    <div class="card-body">
+
+        <div class="mb-3">
+            <label class="form-label">Имя</label>
+
+            <input type="text"
+                   class="form-control"
+                   value="@_name"
+                   @oninput="HandleNameInput"
+                   placeholder="Введите имя" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Возраст</label>
+
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   max="120"
+                   value="@AgeValue"
+                   @oninput="HandleAgeInput" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Пол</label>
+
+            <select class="form-select"
+                    value="@_gender"
+                    @onchange="HandleGenderChange">
+
+                <option value="">Не выбран</option>
+                <option value="Мужской">Мужской</option>
+                <option value="Женский">Женский</option>
+
+            </select>
+        </div>
+
+        <button class="btn btn-primary me-2"
+                @onclick="ResetForm">
+            Сбросить
+        </button>
+
+        <hr />
+
+        <h4>Введённые данные</h4>
+
+        <p><strong>Имя:</strong> @(_name.Length == 0 ? "Не указано" : _name)</p>
+
+        <p><strong>Возраст:</strong> @(AgeValue.Length == 0 ? "Не указан" : AgeValue)</p>
+
+        <p><strong>Пол:</strong> @(_gender.Length == 0 ? "Не выбран" : _gender)</p>
+
+        @if (_age is < 0 or > 120)
+        {
+            <p class="text-danger">
+                Возраст должен быть от 0 до 120 лет.
+            </p>
+        }
+
+    </div>
+</div>
+
+@code {
+    private const int InitialAge = 18;
+
+    private string _name = string.Empty;
+    private int? _age = InitialAge;
+    private string _gender = string.Empty;
+
+    private string AgeValue => _age?.ToString() ?? string.Empty;
+
+    private void HandleNameInput(ChangeEventArgs e)
+    {
+        _name = e.Value?.ToString() ?? string.Empty;
+    }
+
+    private void HandleAgeInput(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString() ?? string.Empty;
+
+        if (int.TryParse(value, out var age))
+        {
+            _age = age;
+        }
+        else
+        {
+            _age = null;
+        }
+    }
+
+    private void HandleGenderChange(ChangeEventArgs e)
+    {
+        _gender = e.Value?.ToString() ?? string.Empty;
+    }
+
+    private void ResetForm()
+    {
+        _name = string.Empty;
+        _age = InitialAge;
+        _gender = string.Empty;
+    }
+}

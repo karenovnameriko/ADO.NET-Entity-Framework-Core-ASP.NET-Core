@@ -1,0 +1,48 @@
+@page "/services"
+@implements IDisposable
+@inject LocalizationService Localization
+
+<p>@Localization.Text("serviceOneDescription")</p>
+
+<div class="row g-3">
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h4>@Localization.Text("serviceOne")</h4>
+            <p>@Localization.Text("serviceOneDescription")</p>        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h4>@Localization.Text("serviceTwo")</h4>
+            <p>@Localization.Text("serviceTwoDescription")</p>        </div>
+    </div>
+
+</div>
+
+<div class="d-flex gap-2 mt-3">
+
+    <NavigationButton Text='@Localization.Text("goProducts")'
+                      Url="/products" />
+
+    <NavigationButton Text='@Localization.Text("goHome")'
+                      Url="/" />
+
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Localization.LanguageChanged += OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Localization.LanguageChanged -= OnLanguageChanged;
+    }
+}

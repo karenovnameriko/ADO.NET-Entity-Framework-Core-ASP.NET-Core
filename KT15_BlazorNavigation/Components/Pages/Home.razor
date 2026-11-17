@@ -1,0 +1,51 @@
+﻿@page "/"
+
+@implements IDisposable
+
+@inject LocalizationService Localization
+
+<h2>@Localization.Text("welcome")</h2>
+
+<p>
+    Это главная страница приложения.
+    Здесь размещён компонент студента.
+</p>
+
+<StudentComponent Name="Мария" Age="20" />
+
+<hr />
+
+<h3>Навигация</h3>
+
+<div class="d-flex flex-wrap gap-2">
+
+    <NavigationButton
+        Text='@Localization.Text("goDetails")'
+        Url="/details/1" />
+
+    <NavigationButton
+        Text='@Localization.Text("goProducts")'
+        Url="/products" />
+
+    <NavigationButton
+        Text='@Localization.Text("goServices")'
+        Url="/services" />
+
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Localization.LanguageChanged += OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Localization.LanguageChanged -= OnLanguageChanged;
+    }
+}

@@ -1,0 +1,35 @@
+@page
+@model KT9_AdminPanel.Pages.Admin.Users.CreateModel
+
+@{
+    ViewData["Title"] = "Добавление пользователя";
+}
+
+<h1>Добавление пользователя</h1>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Email" class="form-label">Email</label>
+        <input asp-for="Input.Email" class="form-control" />
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Password" class="form-label">Пароль</label>
+        <input asp-for="Input.Password" class="form-control" />
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Role" class="form-label">Роль</label>
+        <select asp-for="Input.Role" class="form-select">
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Создать</button>
+    <a asp-page="./Index" class="btn btn-secondary">Назад</a>
+</form>

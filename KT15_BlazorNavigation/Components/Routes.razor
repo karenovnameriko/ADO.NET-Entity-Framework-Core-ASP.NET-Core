@@ -1,0 +1,11 @@
+﻿<Router AppAssembly="typeof(Program).Assembly"
+        NotFoundPage="typeof(KT15_BlazorNavigation.Components.Pages.NotFound)">
+
+    <Found Context="routeData">
+        <RouteView RouteData="routeData"
+                   DefaultLayout="typeof(KT15_BlazorNavigation.Components.Layout.MainLayout)" />
+
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+
+</Router>

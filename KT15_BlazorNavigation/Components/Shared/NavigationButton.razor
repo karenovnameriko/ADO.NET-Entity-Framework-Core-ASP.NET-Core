@@ -1,0 +1,19 @@
+@inject NavigationManager Navigation
+
+<button class="btn btn-primary"
+        @onclick="Navigate">
+    @Text
+</button>
+
+@code {
+    [Parameter]
+    public string Text { get; set; } = "Перейти";
+
+    [Parameter]
+    public string Url { get; set; } = "/";
+
+    private void Navigate()
+    {
+        Navigation.NavigateTo(Url);
+    }
+}

@@ -1,0 +1,59 @@
+@page "/products/{Category?}"
+@implements IDisposable
+@inject LocalizationService Localization
+
+<h2>@Localization.Text("productsText")</h2>
+
+<p>
+    @Localization.Text("category"):
+    <strong>@(string.IsNullOrWhiteSpace(Category)
+                ? Localization.Text("allProducts")
+                : Category)</strong>
+</p>
+
+<div class="row g-3">
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h4>@Localization.Text("productOne")</h4>
+            <p>@Localization.Text("productCategory"): @Localization.Text("electronics")</p>        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h4>@Localization.Text("productTwo")</h4>
+            <p>@Localization.Text("productCategory"): @Localization.Text("electronics")</p>        </div>
+    </div>
+
+</div>
+
+<div class="d-flex gap-2 mt-3">
+    <NavigationButton Text="Товары Electronics"
+                      Url="/products/electronics" />
+
+    <NavigationButton Text='@Localization.Text("goServices")'
+                      Url="/services" />
+
+    <NavigationButton Text='@Localization.Text("goHome")'
+                      Url="/" />
+</div>
+
+@code {
+    [Parameter]
+    public string? Category { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Localization.LanguageChanged += OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Localization.LanguageChanged -= OnLanguageChanged;
+    }
+}

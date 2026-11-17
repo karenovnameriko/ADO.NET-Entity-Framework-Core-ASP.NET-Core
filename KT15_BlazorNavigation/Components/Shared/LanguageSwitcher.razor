@@ -1,0 +1,22 @@
+@inject LocalizationService Localization
+
+<div class="d-flex align-items-center gap-2">
+    <span>@Localization.Text("language"):</span>
+
+    <button class="btn btn-sm btn-outline-secondary"
+            @onclick='() => ChangeLanguage("ru")'>
+        RU
+    </button>
+
+    <button class="btn btn-sm btn-outline-secondary"
+            @onclick='() => ChangeLanguage("en")'>
+        EN
+    </button>
+</div>
+
+@code {
+    private void ChangeLanguage(string language)
+    {
+        Localization.SetLanguage(language);
+    }
+}

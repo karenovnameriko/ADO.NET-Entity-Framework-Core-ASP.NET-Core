@@ -1,0 +1,44 @@
+@page
+
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<h1>Регистрация</h1>
+
+<div id="authMessage" class="mb-3"></div>
+
+<form id="registerForm">
+    <div class="mb-3">
+        <label for="userName" class="form-label">Логин</label>
+        <input id="userName" name="userName" class="form-control"
+               minlength="3" maxlength="30" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Пароль</label>
+        <input id="password" name="password" type="password"
+               class="form-control" minlength="6" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="confirmPassword" class="form-label">
+            Повторите пароль
+        </label>
+        <input id="confirmPassword" name="confirmPassword"
+               type="password" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Зарегистрироваться
+    </button>
+</form>
+
+<p class="mt-3">
+    Уже есть аккаунт?
+    <a asp-page="/Account/Login">Войти</a>
+</p>
+
+@section Scripts {
+    <script src="~/js/auth.js"></script>
+}

@@ -1,0 +1,65 @@
+@page
+@model KT12_OneToOne.Pages.Users.IndexModel
+
+@{
+    ViewData["Title"] = "Пользователи";
+}
+
+<div class="container mt-4">
+    <h1>Пользователи и профили</h1>
+
+    <a asp-page="./Create" class="btn btn-primary mb-3">
+        Добавить пользователя
+    </a>
+
+    @if (!Model.Users.Any())
+    {
+        <p>Пользователей пока нет.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Город</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Profile.Phone</td>
+                    <td>@user.Profile.City</td>
+                    <td>
+                        <a asp-page="./Details"
+                           asp-route-id="@user.Id"
+                           class="btn btn-info btn-sm">
+                            Просмотр
+                        </a>
+
+                        <a asp-page="./Edit"
+                           asp-route-id="@user.Id"
+                           class="btn btn-warning btn-sm">
+                            Изменить
+                        </a>
+
+                        <a asp-page="./Delete"
+                           asp-route-id="@user.Id"
+                           class="btn btn-danger btn-sm">
+                            Удалить
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>

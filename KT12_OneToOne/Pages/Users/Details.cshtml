@@ -1,0 +1,34 @@
+@page "{id:int}"
+@model KT12_OneToOne.Pages.Users.DetailsModel
+
+@{
+    ViewData["Title"] = "Информация о пользователе";
+}
+
+<div class="container mt-4">
+    <h1>Информация о пользователе</h1>
+
+    <h4>Данные пользователя</h4>
+
+    <p><strong>ID:</strong> @Model.SelectedUser!.Id</p>
+    <p><strong>Имя:</strong> @Model.SelectedUser.Name</p>
+    <p><strong>Email:</strong> @Model.SelectedUser.Email</p>
+
+    <hr />
+
+    <h4>Профиль пользователя</h4>
+
+    <p><strong>Телефон:</strong> @Model.SelectedUser.Profile.Phone</p>
+    <p><strong>Город:</strong> @Model.SelectedUser.Profile.City</p>
+    <p><strong>О себе:</strong> @Model.SelectedUser.Profile.About</p>
+
+    <a asp-page="./Edit"
+       asp-route-id="@Model.SelectedUser.Id"
+       class="btn btn-warning">
+        Изменить
+    </a>
+
+    <a asp-page="./Index" class="btn btn-secondary">
+        К списку
+    </a>
+</div>

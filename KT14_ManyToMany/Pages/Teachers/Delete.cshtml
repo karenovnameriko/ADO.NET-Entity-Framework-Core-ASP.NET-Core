@@ -1,0 +1,42 @@
+@page "{id:int}"
+@model KT14_ManyToMany.Pages.Teachers.DeleteModel
+
+@{
+    ViewData["Title"] = "Удаление преподавателя";
+}
+
+<div class="container mt-4">
+    <h1>Удаление преподавателя</h1>
+
+    <div class="alert alert-warning">
+        При удалении преподавателя его курсы и записи студентов
+        на эти курсы также будут удалены.
+    </div>
+
+    <p><strong>Имя:</strong> @Model.SelectedTeacher!.Name</p>
+    <p><strong>Email:</strong> @Model.SelectedTeacher.Email</p>
+
+    <h4>Курсы преподавателя:</h4>
+
+    @if (Model.SelectedTeacher.Courses.Any())
+    {
+        <ul>
+            @foreach (var course in Model.SelectedTeacher.Courses)
+            {
+                <li>@course.Title</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>У преподавателя нет курсов.</p>
+    }
+
+    <form method="post">
+        <button type="submit" class="btn btn-danger">
+            Удалить преподавателя
+        </button>
+
+        <a asp-page="./Index" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

@@ -1,0 +1,247 @@
+@using System.Text.RegularExpressions
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header">
+        <h3>Часть 2. Форма обратной связи</h3>
+    </div>
+
+    <div class="card-body">
+
+        <form @onsubmit="SubmitForm"
+              @onsubmit:preventDefault="true">
+
+            <div class="mb-3">
+                <label class="form-label">Имя пользователя</label>
+
+                <input type="text"
+                       class="form-control"
+                       value="@_name"
+                       @oninput="HandleNameInput"
+                       placeholder="Введите имя" />
+
+                @if (_nameTouched && !string.IsNullOrEmpty(_nameError))
+                {
+                    <div class="text-danger small mt-1">
+                        @_nameError
+                    </div>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+
+                <input type="email"
+                       class="form-control"
+                       value="@_email"
+                       @oninput="HandleEmailInput"
+                       placeholder="example@mail.com" />
+
+                @if (_emailTouched && !string.IsNullOrEmpty(_emailError))
+                {
+                    <div class="text-danger small mt-1">
+                        @_emailError
+                    </div>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Текст сообщения</label>
+
+                <textarea class="form-control"
+                          rows="4"
+                          value="@_message"
+                          @oninput="HandleMessageInput"
+                          placeholder="Введите сообщение (минимум 10 символов)"></textarea>
+
+                @if (_messageTouched && !string.IsNullOrEmpty(_messageError))
+                {
+                    <div class="text-danger small mt-1">
+                        @_messageError
+                    </div>
+                }
+            </div>
+
+            <button type="submit" class="btn btn-primary me-2">
+                Отправить
+            </button>
+
+            <button type="button"
+                    class="btn btn-secondary"
+                    @onclick="ClearForm">
+                Очистить
+            </button>
+
+        </form>
+
+        @if (_isSent && _submittedFeedback != null)
+        {
+            <div class="alert alert-success mt-4">
+                <h4>Форма отправлена!</h4>
+
+                <p><strong>Имя:</strong> @_submittedFeedback.Name</p>
+
+                <p><strong>Email:</strong> @_submittedFeedback.Email</p>
+
+                <p class="mb-0">
+                    <strong>Сообщение:</strong>
+                    @_submittedFeedback.Message
+                </p>
+            </div>
+        }
+
+    </div>
+</div>
+
+@code {
+    private string _name = string.Empty;
+    private string _email = string.Empty;
+    private string _message = string.Empty;
+
+    private string? _nameError;
+    private string? _emailError;
+    private string? _messageError;
+
+    private bool _nameTouched;
+    private bool _emailTouched;
+    private bool _messageTouched;
+
+    private bool _isSent;
+
+    // Данные отправленной формы хранятся в памяти компонента.
+    private FeedbackData? _submittedFeedback;
+
+    private sealed record FeedbackData(
+        string Name,
+        string Email,
+        string Message);
+
+    private void HandleNameInput(ChangeEventArgs e)
+    {
+        _name = e.Value?.ToString() ?? string.Empty;
+        _nameTouched = true;
+
+        ResetSubmittedState();
+        ValidateName();
+    }
+
+    private void HandleEmailInput(ChangeEventArgs e)
+    {
+        _email = e.Value?.ToString() ?? string.Empty;
+        _emailTouched = true;
+
+        ResetSubmittedState();
+        ValidateEmail();
+    }
+
+    private void HandleMessageInput(ChangeEventArgs e)
+    {
+        _message = e.Value?.ToString() ?? string.Empty;
+        _messageTouched = true;
+
+        ResetSubmittedState();
+        ValidateMessage();
+    }
+
+    private void ValidateName()
+    {
+        if (string.IsNullOrWhiteSpace(_name))
+        {
+            _nameError = "Введите имя пользователя.";
+        }
+        else if (_name.Trim().Length < 2)
+        {
+            _nameError = "Имя должно содержать минимум 2 символа.";
+        }
+        else
+        {
+            _nameError = null;
+        }
+    }
+
+    private void ValidateEmail()
+    {
+        if (string.IsNullOrWhiteSpace(_email))
+        {
+            _emailError = "Введите email.";
+        }
+        else if (!Regex.IsMatch(
+            _email,
+            @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            _emailError = "Введите корректный email.";
+        }
+        else
+        {
+            _emailError = null;
+        }
+    }
+
+    private void ValidateMessage()
+    {
+        if (string.IsNullOrWhiteSpace(_message))
+        {
+            _messageError = "Введите сообщение.";
+        }
+        else if (_message.Trim().Length < 10)
+        {
+            _messageError = "Сообщение должно содержать минимум 10 символов.";
+        }
+        else
+        {
+            _messageError = null;
+        }
+    }
+
+    private void SubmitForm()
+    {
+        _nameTouched = true;
+        _emailTouched = true;
+        _messageTouched = true;
+
+        ValidateName();
+        ValidateEmail();
+        ValidateMessage();
+
+        // Если есть ошибки, не отправляем форму.
+        if (_nameError != null ||
+            _emailError != null ||
+            _messageError != null)
+        {
+            _isSent = false;
+            _submittedFeedback = null;
+            return;
+        }
+
+        // Сохраняем данные в переменную компонента.
+        _submittedFeedback = new FeedbackData(
+            _name.Trim(),
+            _email.Trim(),
+            _message.Trim());
+
+        _isSent = true;
+    }
+
+    private void ClearForm()
+    {
+        _name = string.Empty;
+        _email = string.Empty;
+        _message = string.Empty;
+
+        _nameError = null;
+        _emailError = null;
+        _messageError = null;
+
+        _nameTouched = false;
+        _emailTouched = false;
+        _messageTouched = false;
+
+        _submittedFeedback = null;
+        _isSent = false;
+    }
+
+    private void ResetSubmittedState()
+    {
+        _submittedFeedback = null;
+        _isSent = false;
+    }
+}

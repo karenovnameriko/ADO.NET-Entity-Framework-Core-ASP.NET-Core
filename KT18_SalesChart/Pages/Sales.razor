@@ -1,0 +1,50 @@
+@page "/sales"
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@using System.Reflection
+@inject LazyAssemblyLoader AssemblyLoader
+
+<PageTitle>Продажи</PageTitle>
+
+<h1>Аналитика продаж</h1>
+<p>Динамика продаж по месяцам.</p>
+
+@if (_loading)
+{
+    <p>Загрузка графика...</p>
+}
+else if (_error)
+{
+    <p class="text-danger">Не удалось загрузить график.</p>
+}
+else if (_componentType is not null)
+{
+    <DynamicComponent Type="_componentType" />
+}
+
+@code {
+    private bool _loading = true;
+    private bool _error;
+    private Type? _componentType;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var assemblies = await AssemblyLoader.LoadAssembliesAsync(
+                new[] { "SalesChartComponent.dll" });
+
+            var assembly = assemblies.First();
+
+            _componentType = assembly.GetTypes()
+                .First(type => type.Name == "SalesChartComponent");
+        }
+        catch (Exception)
+        {
+            _error = true;
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+}

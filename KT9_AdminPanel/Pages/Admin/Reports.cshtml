@@ -1,0 +1,31 @@
+@page
+@model KT9_AdminPanel.Pages.Admin.ReportsModel
+
+@{
+    ViewData["Title"] = "Отчёты";
+}
+
+<h1>Отчёты</h1>
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Всего пользователей</h5>
+            <h2>@Model.TotalUsers</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Администраторы</h5>
+            <h2>@Model.AdminCount</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Обычные пользователи</h5>
+            <h2>@Model.UserCount</h2>
+        </div>
+    </div>
+</div>

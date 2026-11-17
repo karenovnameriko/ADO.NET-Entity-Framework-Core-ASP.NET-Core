@@ -1,0 +1,44 @@
+
+@baseUrl = http://localhost:5068
+
+### 1. GET — список пользователей
+GET {{baseUrl}}/api/users
+
+### 2. POST — создание пользователя
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "username": "Student",
+  "email": "student@example.com"
+}
+
+### 3. GET — пользователь по ID
+GET {{baseUrl}}/api/users/3
+
+### 4. PUT — обновление
+PUT {{baseUrl}}/api/users/3
+Content-Type: application/json
+
+{
+  "username": "UpdatedStudent",
+  "email": "updated@example.com"
+}
+
+### 5. DELETE — удаление
+DELETE {{baseUrl}}/api/users/3
+
+### 6. GET — проверка удаления
+GET {{baseUrl}}/api/users/3
+
+### 7. POST — проверка валидации
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "username": "12",
+  "email": "wrong-email"
+}
+
+### 8. GET — несуществующий ID
+GET {{baseUrl}}/api/users/999

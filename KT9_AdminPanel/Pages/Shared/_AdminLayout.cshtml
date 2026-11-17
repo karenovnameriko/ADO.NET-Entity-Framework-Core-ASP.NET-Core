@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Админ-панель</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+        body {
+            background: #f5f6fa;
+        }
+
+        .admin-sidebar {
+            min-height: calc(100vh - 56px);
+            background: #212529;
+            padding: 20px;
+        }
+
+        .admin-sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 5px;
+        }
+
+        .admin-sidebar a:hover {
+            background: #495057;
+        }
+
+        .admin-content {
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+<header class="navbar navbar-dark bg-dark px-4">
+    <a class="navbar-brand" asp-page="/Admin/Index">
+        Админ-панель
+    </a>
+
+    <partial name="_LoginPartial" />
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-md-2 admin-sidebar">
+            <a asp-page="/Admin/Index">Главная</a>
+            <a asp-page="/Admin/Users/Index">Пользователи</a>
+            <a asp-page="/Admin/Settings">Настройки</a>
+            <a asp-page="/Admin/Reports">Отчёты</a>
+            <a asp-page="/Index">На сайт</a>
+        </aside>
+
+        <main class="col-md-10 admin-content">
+            @RenderBody()
+        </main>
+    </div>
+</div>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

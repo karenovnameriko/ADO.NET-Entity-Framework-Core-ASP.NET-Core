@@ -1,0 +1,35 @@
+@page
+
+@{
+    ViewData["Title"] = "Защищённый чат";
+}
+
+<h1>Защищённый чат</h1>
+
+<p>Вы вошли как: <strong id="currentUser"></strong></p>
+
+<div class="card p-3">
+    <div id="connectionStatus" class="mb-3">Подключение...</div>
+
+    <ul id="messagesList" class="list-group mb-3"></ul>
+
+    <form id="messageForm">
+        <div class="input-group">
+            <input id="messageInput"
+                   class="form-control"
+                   placeholder="Введите сообщение..."
+                   autocomplete="off" />
+
+            <button type="submit" class="btn btn-primary">
+                Отправить
+            </button>
+        </div>
+    </form>
+</div>
+
+<button id="logoutButton" class="btn btn-outline-danger mt-3">
+    Выйти
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@8.0.7/dist/browser/signalr.min.js"></script>
+<script src="~/js/chat.js"></script>
